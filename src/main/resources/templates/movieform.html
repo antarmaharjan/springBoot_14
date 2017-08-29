@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/addmovie}" th:object="${movie}" method="post">
+
+    <p><input type="hidden" th:field="*{id}"/></p>
+
+    <p>Enter the name of the movie: <input type="text" th:field="*{title}" /></p>
+
+    <p>Enter the year<input type="number" th:field="*{year}" /></p>
+
+    <p>Enter the description: <input type="text" th:field="*{description}" /></p>
+
+   <!--<p>Enter the Director Name: <input type="text" placeholder="Enter Director name" name="dirName"/></p>-->
+
+    <!--<p>Enter the movies: <input type="text" th:field="*{movies}" /></p>-->
+    <!--<p><input type="submit" value="Add" /> <input type="reset" value="Reset" /></p>-->
+    <!--select director-->
+    <div class="form-group">
+        <label class="col-md-4 control-label">Director: </label>
+        <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+                <select th:field="*{director}">
+                    <option value="">Select Director</option>
+                    <option th:each="director:${listDirectors}"
+                            th:value="${director.id}"
+                            th:text="${director.name}">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+</form>
+<button type="submit" value="Submit">Submit</button>
+<button type="reset" calue="Clear Form">Clear</button>
+
+</body>
+</html>
