@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Release Year</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="m : ${movielist}">
+        <td th:text="*{m.id}"></td>
+        <td th:text="*{m.title}"></td>
+        <td th:text="*{m.director}">director goes here</td>
+        <td th:text="*{m.year}"></td>
+        <td th:text="*{m.description}"></td>
+        <td><a th:href="@{/processmovtodir/{directorId}/{movieId}(directorId=${aDirector.id},movieId=${m.id})}">Assign this movie to director</a></td>
+
+    </tr>
+</table>
+
+</body>
+</html>

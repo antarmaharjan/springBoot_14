@@ -17,11 +17,11 @@
             <td th:text="'Id: '+ ${director.id}"></td>
             <td th:text="'Name: ' + ${director.name}"></td>
             <td th:text="'Genre: '+${director.genre}"></td>
-
             <td>
-                <a th:href="@{/addmovie/{director.id}(director.id=${director.id})}">add movie</a>
+                <a th:href="@{/addmovie/{id}(id=${director.id})}">add director</a>
             </td>
         </tr>
+
     </th:block>
 </table>
 </body>

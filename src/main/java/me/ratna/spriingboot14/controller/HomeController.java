@@ -19,6 +19,7 @@ import java.util.Set;
 public class HomeController {
     @Autowired
     DirectorRepository directorRepository;
+    @Autowired
     MovieRepository movieRepository;
     @RequestMapping("/")
     public String index(Model model){
@@ -32,6 +33,7 @@ public class HomeController {
         movie.setTitle("star movies");
         movie.setYear(2017);
         movie.setDescription("About Starts...");
+        movie.setDirector(director);
 
         //Add the movies to an empty list
         Set<Movie> movies = new HashSet<Movie>();
@@ -41,6 +43,7 @@ public class HomeController {
         movie.setTitle("DeathStar Ewoks");
         movie.setYear(2011);
         movie.setDescription("About Ewoks on the DeathStar...");
+        movie.setDirector(director);
         movies.add(movie);
 
         //Add the list of movies to the director's movie list
@@ -59,31 +62,17 @@ public class HomeController {
         return "movieform";
     }
     @PostMapping("/addmovie")
-    public String processMovie(@Valid Movie movie, BindingResult result){
+    public String processMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult result){
         if(result.hasErrors()){
             return "movieform";
         }
         movieRepository.save(movie);
         return "index1";
-
-
-//        System.out.pirintln(directorName);
-//        System.out.println(movie.getTitle());
-
-//        Director director1 = directorRepository.findFirstByNameContains("directorName");
-//        System.out.println(director1.getId());
-//        Set<Movie> allmov = director1.getMovies();
-//        allmov.add(movie);
-//        director1.setMovies(allmov);
-//
-//        model.addAttribute("Director1", director1);
-//        model.addAttribute("movie", movie);
-//        return "movieconfirm";
     }
     @GetMapping("/adddirector")
     public String adddirector(Model model){
         model.addAttribute("director",new Director());
-       // model.addAttribute("movielist",movieRepository.findAll());
+        //model.addAttribute("movielist",movieRepository.findAll());
         return "directorform";
     }
     @PostMapping("/adddirector")
@@ -99,6 +88,7 @@ public class HomeController {
         model.addAttribute("Directorslist",directorRepository.findAll());
         return "showDirectors";
     }
+
     @RequestMapping("/showMovies")
     public String showMovies(Model model){
         model.addAttribute("listMovies",movieRepository.findAll());

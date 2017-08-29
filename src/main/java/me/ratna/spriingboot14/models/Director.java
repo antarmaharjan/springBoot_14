@@ -1,6 +1,7 @@
 package me.ratna.spriingboot14.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,9 @@ public class Director {
     private String genre;
     @OneToMany(mappedBy = "director",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Movie> movies;
+    public Director(){
+        setMovies(new HashSet<Movie>());
+    }
 
     public long getId() {
         return id;
@@ -43,5 +47,10 @@ public class Director {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
+    }
+    public void addmovie(Movie m){
+        m.setDirector(this);
+        this.movies.add(m);
+
     }
 }
