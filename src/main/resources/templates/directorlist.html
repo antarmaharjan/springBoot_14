@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"><head>
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-<a href="/adddir">Add a new director</a><br />
-<table>
+<table class="table">
     <tr>
-        <th>Id</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Genre</th>
+        <th>Movies</th>
+        <th>Action</th>
     </tr>
-    <th:block th:each="director:${alldir}">
-        <tr>
-            <td th:text="'Id: '+ ${director.id}"></td>
-            <td th:text="'Name: ' + ${director.name}"></td>
-            <td th:text="'Genre: '+${director.genre}"></td>
-            <td>
-                <a th:href="@{/addmovie/{id}(id=${director.id})}">add director</a>
-            </td>
-        </tr>
+    <tr th:each="director : ${alldirector}">
+        <td th:text="*{director.id}"></td>
+        <td th:text="*{director.name}"></td>
+        <td th:text="*{director.genre}"></td>
+        <td th:text="*{director.movies}"></td>
+        <td><a th:href="@{/directorlist/{id}(id=${director.id})}">view details</a>"</td>
+        <!--<td th:text="*{director.movies}"></td>-->
 
-    </th:block>
+    </tr>
 </table>
 </body>
 </html>

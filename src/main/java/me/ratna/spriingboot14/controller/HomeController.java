@@ -23,7 +23,7 @@ public class HomeController {
     MovieRepository movieRepository;
     @RequestMapping("/")
     public String index(Model model){
-        //create a director
+        //First let's create a director
         Director director = new Director();
         director.setName("Stephen Bullock");
         director.setGenre("Sci Fi");
@@ -33,7 +33,7 @@ public class HomeController {
         movie.setTitle("star movies");
         movie.setYear(2017);
         movie.setDescription("About Starts...");
-        movie.setDirector(director);
+        //movie.setDirector(director);
 
         //Add the movies to an empty list
         Set<Movie> movies = new HashSet<Movie>();
@@ -89,10 +89,16 @@ public class HomeController {
         return "showDirectors";
     }
 
-    @RequestMapping("/showMovies")
+    @GetMapping("/movielist")
     public String showMovies(Model model){
-        model.addAttribute("listMovies",movieRepository.findAll());
-        return "showMovies";
+        Iterable<Movie>allmovies =movieRepository.findAll();
+        model.addAttribute("allmovies",allmovies);
+        return "movielist";
+    }
+    @GetMapping("/movielist/{id}")
+    public String showmovlist(@PathVariable("id") long id,Model model){
+        model.addAttribute("movie",movieRepository.findOne(id));
+        return "movie";
     }
 
     @GetMapping("/direcotrlist")
@@ -100,5 +106,10 @@ public class HomeController {
         Iterable<Director>alldirector =directorRepository.findAll();
         model.addAttribute("alldirector",alldirector);
         return "directorlist";
+    }
+    @GetMapping("/directorlist/{id}")
+    public String showMovies(@PathVariable("id") long id,Model model){
+        model.addAttribute("director",directorRepository.findOne(id));
+        return "director";
     }
 }

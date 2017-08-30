@@ -9,19 +9,21 @@
             <th>ID</th>
             <th>Title</th>
             <th>Director</th>
-            <th>Release Year</th>
+            <th>Released Year</th>
             <th>Description</th>
             <th>Action</th>
         </tr>
-        <tr th:each="movie : ${listMovies}">
+        <tr th:each="movie : ${allmovies}">
             <td th:text="*{movie.id}"></td>
             <td th:text="*{movie.title}"></td>
-            <td th:text="*{movie.director}">director goes here</td>
+            <td th:text="*{movie.director}"></td>
             <td th:text="*{movie.year}"></td>
             <td th:text="*{movie.description}"></td>
-            <td>update</td>
+            <td><a th:href="@{/movielist/{id}(id=${movie.id})}">view details</a>"</td>
         </tr>
     </table>
 
 </body>
 </html>
+
+</table>
